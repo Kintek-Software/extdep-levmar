@@ -13,9 +13,9 @@ SET(HAVE_PLASMA 0 CACHE BOOL "Do we have PLASMA parallel linear algebra library?
 IF(HAVE_PLASMA)
  SET(PLASMA_DIR "/usr/local/PLASMA" CACHE PATH "Path to PLASMA root")
 ENDIF(HAVE_PLASMA)
-SET(LINSOLVERS_RETAIN_MEMORY 1 CACHE BOOL "Should linear solvers retain working memory between calls? (non-reentrant!)")
+SET(LINSOLVERS_RETAIN_MEMORY 0 CACHE BOOL "Should linear solvers retain working memory between calls? (non-reentrant!)")
 SET(LM_DBL_PREC 1 CACHE BOOL "Build double precision routines?")
-SET(LM_SNGL_PREC 1 CACHE BOOL "Build single precision routines?")
+SET(LM_SNGL_PREC 0 CACHE BOOL "Build single precision routines?")
 
 OPTION(BUILD_DEMO "Build demo program?" OFF)
 
@@ -62,7 +62,7 @@ ENDIF(HAVE_PLASMA)
 # levmar library source files
 ADD_LIBRARY(levmar STATIC
   lm.c Axb.c misc.c lmlec.c lmbc.c lmblec.c lmbleic.c
-  include/levmar.h misc.h compiler.h
+        misc.h compiler.h
 )
 
 target_include_directories(levmar PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
