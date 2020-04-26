@@ -13,11 +13,31 @@ SET(HAVE_PLASMA 0 CACHE BOOL "Do we have PLASMA parallel linear algebra library?
 IF(HAVE_PLASMA)
  SET(PLASMA_DIR "/usr/local/PLASMA" CACHE PATH "Path to PLASMA root")
 ENDIF(HAVE_PLASMA)
-SET(LINSOLVERS_RETAIN_MEMORY 0 CACHE BOOL "Should linear solvers retain working memory between calls? (non-reentrant!)")
-SET(LM_DBL_PREC 1 CACHE BOOL "Build double precision routines?")
-SET(LM_SNGL_PREC 0 CACHE BOOL "Build single precision routines?")
 
 OPTION(BUILD_DEMO "Build demo program?" OFF)
+OPTION(SINGLE_PRECISION "Single precision?" OFF)
+OPTION(DOUBLE_PRECISION "Double precision?" ON)
+OPTION(RETAIN_MEMORY "retain memory after each call?" OFF)
+
+if (RETAIN_MEMORY)
+  SET(LINSOLVERS_RETAIN_MEMORY 1)
+else()
+  SET(LINSOLVERS_RETAIN_MEMORY 0)
+endif()
+
+if (SINGLE_PRECISION)
+  SET(LM_SNGL_PREC 1)
+else()
+  SET(LM_SNGL_PREC 0)
+endif()
+
+if (DOUBLE_PRECISION)
+  SET(LM_DBL_PREC 1)
+else()
+  SET(LM_DBL_PREC 0)
+endif()
+
+
 
 # actual names for the lapack/blas/f2c libraries
 SET(LAPACKBLAS_LIB_NAMES "lapack;blas" CACHE STRING "The name of the lapack & blas libraries")
